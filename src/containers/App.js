@@ -3,6 +3,7 @@ import Robots from '../components/Robots'
 import {robots} from '../robotsList'
 import SearchBox from '../components/SearchBox'
 import Scroll from '../components/Scroll'
+import ErrorBoundary from '../components/ErrorBoundary'
 
 
 export default class App extends Component {
@@ -19,7 +20,7 @@ export default class App extends Component {
   }
   render() {
     const {robots, searchField} = this.state
-    
+
     const filteredRobots = robots.filter(robot => {
       return robot.name.toLocaleLowerCase().includes(searchField
         .toLocaleLowerCase())
@@ -30,7 +31,9 @@ export default class App extends Component {
           <h1>RoboFriends</h1>
           <SearchBox searchChange = {this.onSearchChange}/>
           <Scroll>
+            <ErrorBoundary>
              <Robots robots={filteredRobots}/>
+             </ErrorBoundary>
           </Scroll>
         </div>
       )
